@@ -1,0 +1,103 @@
+#include <iostream>
+#include <cmath>
+#include <cctype>
+
+class Hexagon {
+private:
+    double side;
+
+public:
+    Hexagon(double s) : side(s) {}
+
+    void calcArea() {
+        double area = 1.5 * 1.732 * side;
+        std::cout << "Area of Hexagon: " << area << std::endl;
+    }
+
+    void calcPeri() {
+        double perimeter = 6 * side;
+        std::cout << "Perimeter of Hexagon: " << perimeter << std::endl;
+    }
+
+    void calcAngleSum() {
+        double angleSum = 6 * 120;
+        std::cout << "Sum of all angles of Hexagon: " << angleSum << std::endl;
+    }
+
+    void display() {
+        calcArea();
+        calcPeri();
+        calcAngleSum();
+    }
+};
+
+class Square {
+private:
+    double length;
+
+public:
+    Square(double l) : length(l) {}
+
+    void calcAreaSquare() {
+        double area = std::pow(length, 2);
+        std::cout << "Area of Square: " << area << std::endl;
+    }
+
+    void calcPeriSquare() {
+        double perimeter = 4 * length;
+        std::cout << "Perimeter of Square: " << perimeter << std::endl;
+    }
+
+    void display() {
+        calcAreaSquare();
+        calcPeriSquare();
+    }
+};
+
+int main() {
+    std::string cnic;
+    std::cout << "Enter your CNIC: ";
+    std::cin >> cnic;
+
+    if (cnic.length() != 10) {
+        std::cerr << "Invalid CNIC. Exiting program." << std::endl;
+        return 1;
+    }
+
+    char lastDigitChar = cnic.back();
+    if (!isdigit(lastDigitChar)) {
+        std::cerr << "Invalid CNIC. Exiting program." << std::endl;
+        return 1;
+    }
+
+    int lastDigit = lastDigitChar - '0';
+
+    int choice;
+
+    do {
+        std::cout << "Menu:" << std::endl;
+        std::cout << "1. Hexagon" << std::endl;
+        std::cout << "2. Square" << std::endl;
+        std::cout << "Any other input to exit" << std::endl;
+        std::cout << "Enter your choice: ";
+        std::cin >> choice;
+
+        switch (choice) {
+            case 1: {
+                Hexagon hex(lastDigit);
+                hex.display();
+                break;
+            }
+            case 2: {
+                Square square(lastDigit + 1);
+                square.display();
+                break;
+            }
+            default:
+                std::cout << "Exiting program." << std::endl;
+                break;
+        }
+    } while (choice == 1 || choice == 2);
+
+    return 0;
+}
